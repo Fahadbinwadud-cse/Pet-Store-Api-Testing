@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "93892353-e9dd-4b60-8a9c-6fdc6adcb0ce",
+		"name": "PetStore_API_user_Module",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25441664"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Create same type of variable when create environment variable some time create run time problem\r",
+							"// Create two random number and random string variables\r",
+							"\r",
+							"const random = Math.floor(Math.random()*100+1);\r",
+							"var randomstr = \"Fahad\"+Math.random().toString(32).substr(2);\r",
+							"\r",
+							"// Create number of collection variable\r",
+							"pm.collectionVariables.set(\"id\",random);\r",
+							"pm.collectionVariables.set(\"username\",randomstr);\r",
+							"pm.collectionVariables.set(\"firstName\",randomstr);\r",
+							"pm.collectionVariables.set(\"lastName\",randomstr);\r",
+							"pm.collectionVariables.set(\"email\",randomstr+\"@gmail.com\");\r",
+							"pm.collectionVariables.set(\"password\",randomstr);\r",
+							"pm.collectionVariables.set(\"phone\",\"01832790433\");\r",
+							"pm.collectionVariables.set(\"userStatus\",0);\r",
+							"// check output variable values\r",
+							"console.log(pm.collectionVariables.get(\"email\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User has been successfully created\",()=>{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"// These all are Testing Header items\r",
+							"pm.test(\"Content-Type Header is present\",()=>{\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"Content-Type header is application/json\",()=>{\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"// this are response time testing\r",
+							"pm.test(\"This resposne time is less than 200ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.below(2000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\":{{id}},\n  \"username\": \"{{username}}\",\n  \"firstName\": \"{{firstName}}\",\n  \"lastName\": \"{{lastName}}\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"phone\": \"{{phone}}\",\n  \"userStatus\": {{userStatus}}\n}"
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User By Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User info has been successfully displayed\",()=>{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"// These all are Testing Header items\r",
+							"pm.test(\"Content-Type Header is present\",()=>{\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"Content-Type header is application/json\",()=>{\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"// this are response time testing\r",
+							"pm.test(\"This resposne time is less than 200ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.below(2000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/{{firstName}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"{{firstName}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User By Name",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var randomstr = \"Farhana\"+Math.random().toString(32).substr(2);\r",
+							"// Update email & phone\r",
+							"pm.collectionVariables.set(\"email\",\"farhana\"+randomstr+\"@gmail.com\");\r",
+							"pm.collectionVariables.set(\"password\",randomstr);\r",
+							"pm.collectionVariables.set(\"phone\",\"012437593739\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User info has been successfully update\",()=>{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"// These all are Testing Header items\r",
+							"pm.test(\"Content-Type Header is present\",()=>{\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"Content-Type header is application/json\",()=>{\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"// this are response time testing\r",
+							"pm.test(\"This resposne time is less than 200ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.below(2000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\":{{id}},\r\n  \"username\": \"{{username}}\",\r\n  \"firstName\": \"{{firstName}}\",\r\n  \"lastName\": \"{{lastName}}\",\r\n  \"email\": \"{{email}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"phone\": \"{{phone}}\",\r\n  \"userStatus\": {{userStatus}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/{{firstName}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"{{firstName}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete By User Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User id has been successfully Deleted\",()=>{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.collectionVariables.unset(\"id\");\r",
+							"pm.collectionVariables.unset(\"username\");\r",
+							"pm.collectionVariables.unset(\"firstName\");\r",
+							"pm.collectionVariables.unset(\"lastName\");\r",
+							"pm.collectionVariables.unset(\"email\");\r",
+							"pm.collectionVariables.unset(\"password\");\r",
+							"pm.collectionVariables.unset(\"phone\");\r",
+							"pm.collectionVariables.unset(\"userStatus\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/{{username}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"{{username}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
