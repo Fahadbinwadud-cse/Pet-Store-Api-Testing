@@ -1,6 +1,6 @@
 # Pet-Store-Api-Testing
 I created a demo Pet store user module API for Testing. Here i used JSON Dataset.    
-## Create Pet store user Detail using post method.Here is image below:
+## Create Pet store user Details using post method.Here is image below:
 
 ![2](https://user-images.githubusercontent.com/61489509/232316281-c47f2c53-cff3-403c-9dc1-56c9a3c3efff.png)
 
@@ -17,7 +17,7 @@ Fetching user Details using get method. Here is image below:
 
 
 ## Update Pet store user Detail
-Updating Update Pet store user Detail using put method with id. Here is image below:  
+Updating Update Pet store user email, password and phone number using put method with id. Here is image below:  
 ![5](https://user-images.githubusercontent.com/61489509/232317201-bcd9155a-146a-45c9-bde5-3cc7f2839743.png)
 
 ![Postman_fb8riKAAQS](https://user-images.githubusercontent.com/61489509/232317366-9e4ba601-c07b-4c13-a4a4-34ede47a3660.png)
